@@ -75,8 +75,9 @@ module org.apache.lucene.core {
 
   exports org.apache.lucene.util.quantization;
   exports org.apache.lucene.codecs.hnsw;
+  exports org.apache.lucene.codecs.lucene90.blocktree;
 
-  provides org.apache.lucene.analysis.TokenizerFactory with
+    provides org.apache.lucene.analysis.TokenizerFactory with
       org.apache.lucene.analysis.standard.StandardTokenizerFactory;
   provides org.apache.lucene.codecs.Codec with
       org.apache.lucene.codecs.lucene103.Lucene103Codec;

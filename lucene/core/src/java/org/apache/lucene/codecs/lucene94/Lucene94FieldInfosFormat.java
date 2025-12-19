@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+import org.apache.lucene.codecs.Codec;
 import org.apache.lucene.codecs.CodecUtil;
 import org.apache.lucene.codecs.DocValuesFormat;
 import org.apache.lucene.codecs.FieldInfosFormat;
@@ -122,6 +124,8 @@ import org.apache.lucene.store.IndexOutput;
  */
 public final class Lucene94FieldInfosFormat extends FieldInfosFormat {
 
+  private static final Logger LOG = Logger.getLogger(Lucene94FieldInfosFormat.class.getName());
+
   /** Sole constructor. */
   public Lucene94FieldInfosFormat() {}
 
@@ -140,7 +144,7 @@ public final class Lucene94FieldInfosFormat extends FieldInfosFormat {
                 input,
                 Lucene94FieldInfosFormat.CODEC_NAME,
                 Lucene94FieldInfosFormat.FORMAT_START,
-                Lucene94FieldInfosFormat.FORMAT_CURRENT,
+                Lucene94FieldInfosFormat.FORMAT_CURRENT_READ,
                 segmentInfo.getId(),
                 segmentSuffix);
 
@@ -439,7 +443,9 @@ public final class Lucene94FieldInfosFormat extends FieldInfosFormat {
 
         // pack the DV type and hasNorms in one byte
         output.writeByte(docValuesByte(fi.getDocValuesType()));
-        output.writeByte(docValuesSkipIndexByte(fi.docValuesSkipIndexType()));
+        if (FORMAT_CURRENT >= FORMAT_DOCVALUE_SKIPPER) {
+          output.writeByte(docValuesSkipIndexByte(fi.docValuesSkipIndexType()));
+        }
         output.writeLong(fi.getDocValuesGen());
         output.writeMapOfStrings(fi.attributes());
         output.writeVInt(fi.getPointDimensionCount());
@@ -464,7 +470,8 @@ public final class Lucene94FieldInfosFormat extends FieldInfosFormat {
   // this doesn't actually change the file format but uses up one more bit an existing bit pattern
   static final int FORMAT_PARENT_FIELD = 1;
   static final int FORMAT_DOCVALUE_SKIPPER = 2;
-  static final int FORMAT_CURRENT = FORMAT_DOCVALUE_SKIPPER;
+  static final int FORMAT_CURRENT = "Lucene99".equals(Codec.LuceneCodec) ? FORMAT_PARENT_FIELD : FORMAT_DOCVALUE_SKIPPER;
+  static final int FORMAT_CURRENT_READ = FORMAT_DOCVALUE_SKIPPER;
 
   // Field flags
   static final byte STORE_TERMVECTOR = 0x1;

@@ -18,6 +18,7 @@ package org.apache.lucene.codecs.lucene90;
 
 import java.io.IOException;
 import java.util.Map;
+import org.apache.lucene.codecs.Codec;
 import org.apache.lucene.codecs.PointsFormat;
 import org.apache.lucene.codecs.PointsReader;
 import org.apache.lucene.codecs.PointsWriter;
@@ -62,7 +63,8 @@ public final class Lucene90PointsFormat extends PointsFormat {
 
   static final int VERSION_START = 0;
   static final int VERSION_BKD_VECTORIZED_BPV24 = 1;
-  static final int VERSION_CURRENT = VERSION_BKD_VECTORIZED_BPV24;
+  static final int VERSION_CURRENT = "Lucene99".equals(Codec.LuceneCodec) ? VERSION_START : VERSION_BKD_VECTORIZED_BPV24;
+  static final int VERSION_CURRENT_READ = VERSION_BKD_VECTORIZED_BPV24;
 
   private static final Map<Integer, Integer> VERSION_TO_BKD_VERSION =
       Map.of(

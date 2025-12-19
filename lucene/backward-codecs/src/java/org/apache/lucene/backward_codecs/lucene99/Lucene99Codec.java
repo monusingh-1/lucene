@@ -17,7 +17,6 @@
 package org.apache.lucene.backward_codecs.lucene99;
 
 import java.util.Objects;
-import org.apache.lucene.backward_codecs.lucene912.Lucene912PostingsFormat;
 import org.apache.lucene.codecs.Codec;
 import org.apache.lucene.codecs.CompoundFormat;
 import org.apache.lucene.codecs.DocValuesFormat;
@@ -119,7 +118,7 @@ public class Lucene99Codec extends Codec {
     super("Lucene99");
     this.storedFieldsFormat =
         new Lucene90StoredFieldsFormat(Objects.requireNonNull(mode).storedMode);
-    this.defaultPostingsFormat = new Lucene912PostingsFormat();
+    this.defaultPostingsFormat = new Lucene99PostingsFormat();
     this.defaultDVFormat = new Lucene90DocValuesFormat();
     this.defaultKnnVectorsFormat = new Lucene99HnswVectorsFormat();
   }

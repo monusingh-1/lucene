@@ -66,7 +66,7 @@ public class Lucene90PointsReader extends PointsReader {
           indexIn,
           Lucene90PointsFormat.INDEX_CODEC_NAME,
           Lucene90PointsFormat.VERSION_START,
-          Lucene90PointsFormat.VERSION_CURRENT,
+          Lucene90PointsFormat.VERSION_CURRENT_READ,
           readState.segmentInfo.getId(),
           readState.segmentSuffix);
       CodecUtil.retrieveChecksum(indexIn);
@@ -80,7 +80,7 @@ public class Lucene90PointsReader extends PointsReader {
           dataIn,
           Lucene90PointsFormat.DATA_CODEC_NAME,
           Lucene90PointsFormat.VERSION_START,
-          Lucene90PointsFormat.VERSION_CURRENT,
+          Lucene90PointsFormat.VERSION_CURRENT_READ,
           readState.segmentInfo.getId(),
           readState.segmentSuffix);
       CodecUtil.retrieveChecksum(dataIn);
@@ -93,7 +93,7 @@ public class Lucene90PointsReader extends PointsReader {
               metaIn,
               Lucene90PointsFormat.META_CODEC_NAME,
               Lucene90PointsFormat.VERSION_START,
-              Lucene90PointsFormat.VERSION_CURRENT,
+              Lucene90PointsFormat.VERSION_CURRENT_READ,
               readState.segmentInfo.getId(),
               readState.segmentSuffix);
 

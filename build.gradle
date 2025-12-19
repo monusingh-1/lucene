@@ -50,7 +50,7 @@ version = {
   //  -Dversion.suffix=jenkins123
   
   String versionSuffix = propertyOrDefault('version.suffix', 'SNAPSHOT')
-  return propertyOrDefault('version.release', "${baseVersion}-${versionSuffix}")
+  return propertyOrDefault('version.release', "${baseVersion}")
 }()
 description = 'Grandparent project for Apache Lucene Core'
 

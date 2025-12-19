@@ -62,6 +62,21 @@ public abstract class Codec implements NamedSPILoader.NamedSPI {
   private final String name;
 
   /**
+   * Lucene Codec system properties variable
+   */
+  public static final String LUCENE_CODEC_ENV = "LUCENE_CODEC";
+  /**
+   * Lucene codec used for current opensearch version
+   */
+  public static String LuceneCodec = System.getenv(LUCENE_CODEC_ENV);
+
+  static {
+    if (LuceneCodec == null || LuceneCodec == "") {
+      LuceneCodec = "Lucene103"; // defaults Lucene103
+    }
+  }
+
+  /**
    * Creates a new codec.
    *
    * <p>The provided name will be written into the index segment: in order to for the segment to be

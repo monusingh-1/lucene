@@ -17,6 +17,9 @@
 package org.apache.lucene.codecs.memory;
 
 import java.io.IOException;
+import org.apache.lucene.backward_codecs.lucene99.Lucene99PostingsReader;
+import org.apache.lucene.backward_codecs.lucene99.Lucene99PostingsWriter;
+import org.apache.lucene.codecs.Codec;
 import org.apache.lucene.codecs.FieldsConsumer;
 import org.apache.lucene.codecs.FieldsProducer;
 import org.apache.lucene.codecs.PostingsFormat;
@@ -41,7 +44,7 @@ public final class FSTPostingsFormat extends PostingsFormat {
 
   @Override
   public FieldsConsumer fieldsConsumer(SegmentWriteState state) throws IOException {
-    PostingsWriterBase postingsWriter = new Lucene103PostingsWriter(state);
+    PostingsWriterBase postingsWriter = "Lucene99".equals(Codec.LuceneCodec) ? new Lucene99PostingsWriter(state) : new Lucene103PostingsWriter(state);
 
     boolean success = false;
     try {
@@ -57,7 +60,7 @@ public final class FSTPostingsFormat extends PostingsFormat {
 
   @Override
   public FieldsProducer fieldsProducer(SegmentReadState state) throws IOException {
-    PostingsReaderBase postingsReader = new Lucene103PostingsReader(state);
+    PostingsReaderBase postingsReader = "Lucene99".equals(Codec.LuceneCodec) ? new Lucene99PostingsReader(state) : new Lucene103PostingsReader(state);
     boolean success = false;
     try {
       FieldsProducer ret = new FSTTermsReader(state, postingsReader);

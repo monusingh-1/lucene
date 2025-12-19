@@ -16,6 +16,7 @@
  */
 package org.apache.lucene.backward_codecs.lucene99;
 
+import static org.apache.lucene.backward_codecs.lucene99.ForUtil.BLOCK_SIZE;
 import static org.apache.lucene.backward_codecs.lucene99.Lucene99PostingsFormat.DOC_CODEC;
 import static org.apache.lucene.backward_codecs.lucene99.Lucene99PostingsFormat.MAX_SKIP_LEVELS;
 import static org.apache.lucene.backward_codecs.lucene99.Lucene99PostingsFormat.PAY_CODEC;
@@ -24,11 +25,11 @@ import static org.apache.lucene.backward_codecs.lucene99.Lucene99PostingsFormat.
 import static org.apache.lucene.backward_codecs.lucene99.Lucene99PostingsFormat.VERSION_CURRENT;
 
 import java.io.IOException;
-import org.apache.lucene.backward_codecs.lucene99.Lucene99PostingsFormat.IntBlockTermState;
 import org.apache.lucene.codecs.BlockTermState;
 import org.apache.lucene.codecs.CodecUtil;
 import org.apache.lucene.codecs.CompetitiveImpactAccumulator;
 import org.apache.lucene.codecs.PushPostingsWriterBase;
+import org.apache.lucene.backward_codecs.lucene99.Lucene99PostingsFormat.IntBlockTermState;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.FieldInfo;
 import org.apache.lucene.index.IndexFileNames;

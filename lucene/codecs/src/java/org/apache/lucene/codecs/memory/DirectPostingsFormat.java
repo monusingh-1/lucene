@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+import org.apache.lucene.codecs.Codec;
 import org.apache.lucene.codecs.FieldsConsumer;
 import org.apache.lucene.codecs.FieldsProducer;
 import org.apache.lucene.codecs.PostingsFormat;
@@ -97,12 +98,12 @@ public final class DirectPostingsFormat extends PostingsFormat {
 
   @Override
   public FieldsConsumer fieldsConsumer(SegmentWriteState state) throws IOException {
-    return PostingsFormat.forName("Lucene103").fieldsConsumer(state);
+    return PostingsFormat.forName("Lucene99".equals(Codec.LuceneCodec) ? "Lucene99" : "Lucene103").fieldsConsumer(state);
   }
 
   @Override
   public FieldsProducer fieldsProducer(SegmentReadState state) throws IOException {
-    FieldsProducer postings = PostingsFormat.forName("Lucene103").fieldsProducer(state);
+    FieldsProducer postings = PostingsFormat.forName("Lucene99".equals(Codec.LuceneCodec) ? "Lucene99" : "Lucene103").fieldsProducer(state);
     if (state.context.context() != IOContext.Context.MERGE) {
       FieldsProducer loadedPostings;
       try {
